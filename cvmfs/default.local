@@ -1,0 +1,5 @@
+CVMFS_REPOSITORIES=atlas.cern.ch,cms.cern.ch,lhcb.cern.ch,juno.ihep.ac.cn,lhaaso.ihep.ac.cn,common.ihep.ac.cn
+#CVMFS_CACHE_BASE=/tmp/cvmfs
+#CVMFS_QUOTA_LIMIT=40960
+CVMFS_HTTP_PROXY="DIRECT"
+
