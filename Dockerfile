@@ -19,6 +19,7 @@ COPY custom.sh /etc/profile.d/custom.sh
 # all those devel packages are what needed to compile JUNO offline
 RUN sed -i '/tsflags=nodocs/d' /etc/yum.conf && \
     yum install -y  $(<missing) mesa-dri-drivers && \
+    yum update -y && \
     yum install -y  https://ecsft.cern.ch/dist/cvmfs/cvmfs-release/cvmfs-release-latest.noarch.rpm && \
     yum install -y  cvmfs cvmfs-fuse3 && \
     yum install -y  libxml2-devel curl-devel \
