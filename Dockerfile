@@ -18,7 +18,10 @@ COPY custom.sh /etc/profile.d/custom.sh
 # packages like mesa-dri-drivers will be useful for serena.exe
 # all those devel packages are what needed to compile JUNO offline
 RUN sed -i '/tsflags=nodocs/d' /etc/yum.conf && \
-    yum install -y  $(<missing) mesa-dri-drivers && \
+    yum install -y  $(<missing) mesa-dri-drivers epel-release && \
+    yum-config-manager --add-repo "https://storage-ci.web.cern.ch/storage-ci/eos/diopside/tag/testing/el-7/x86_64/" && \
+    yum-config-manager --add-repo "https://storage-ci.web.cern.ch/storage-ci/eos/diopside-depend/el-7/x86_64/" && \
+    yum install -y --nogpgcheck eos-client eos-fusex && \
     yum update -y && \
     yum install -y  https://ecsft.cern.ch/dist/cvmfs/cvmfs-release/cvmfs-release-latest.noarch.rpm && \
     yum install -y  cvmfs cvmfs-fuse3 && \
