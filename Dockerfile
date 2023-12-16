@@ -1,3 +1,14 @@
+FROM quay.io/centos/centos:7 as builder
+
+RUN yum install -y epel-release && \
+    yum install -y git meson ninja-build gcc glib2-devel && \
+    git clone https://github.com/flatpak/flatpak-xdg-utils.git && \
+    cd flatpak-xdg-utils && \
+    git checkout 1.0.5 && \
+    mkdir build && \
+    meson build && \
+    ninja -C build 
+
 FROM quay.io/centos/centos:7
 
 ENV NAME=centos-toolbox VERSION=7
@@ -13,6 +24,11 @@ LABEL com.github.containers.toolbox="true" \
 COPY missing /
 COPY cvmfs /etc/cvmfs
 COPY custom.sh /etc/profile.d/custom.sh
+
+# Copy the flatpak-xdg-utils binaries
+COPY --from=builder /flatpak-xdg-utils/build/src/flatpak-spawn /usr/bin/flatpak-spawn
+COPY --from=builder /flatpak-xdg-utils/build/src/xdg-open /usr/bin/xdg-open
+COPY --from=builder /flatpak-xdg-utils/build/src/xdg-email /usr/bin/xdg-email
 
 # Install the required packages
 # packages like mesa-dri-drivers will be useful for serena.exe
@@ -32,5 +48,3 @@ RUN sed -i '/tsflags=nodocs/d' /etc/yum.conf && \
     rm missing && \
     echo VARIANT_ID=container >> /etc/os-release 
 
-# Set the default command
-CMD /bin/sh
