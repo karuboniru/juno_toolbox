@@ -1,6 +1,6 @@
 FROM quay.io/centos/centos:stream9
 
-ENV NAME=juno-centos-toolbox VERSION=9
+ENV NAME=juno-centos-distrobox VERSION=9
 LABEL com.github.containers.toolbox="true" \
       com.github.debarshiray.toolbox="true" \
       com.redhat.component="$NAME" \
@@ -12,7 +12,7 @@ LABEL com.github.containers.toolbox="true" \
 
 COPY missing /
 COPY cvmfs /etc/cvmfs
-COPY custom.sh /etc/profile.d/custom.sh
+COPY fstab /etc/fstab
 
 # Install the required packages
 # packages like mesa-dri-drivers will be useful for serena.exe
@@ -32,5 +32,7 @@ RUN sed -i '/tsflags=nodocs/d' /etc/dnf/dnf.conf && \
                     libXpm-devel libicu-devel libXft git openssh-clients gsl-devel make patch glibc-devel && \
     dnf clean all && \
     rm missing && \
-    ln -sf /usr/bin/flatpak-xdg-open /usr/bin/xdg-open 
+    ln -sf /usr/bin/flatpak-xdg-open /usr/bin/xdg-open && \
+    mkdir -p /cvmfs/juno.ihep.ac.cn && \
+    mkdir -p /cvmfs/dcomputing.ihep.ac.cn
 
