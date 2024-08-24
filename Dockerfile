@@ -26,7 +26,7 @@ RUN sed -i '/tsflags=nodocs/d' /etc/dnf/dnf.conf && \
     dnf install -y  $(<missing) mesa-dri-drivers epel-release epel-next-release flatpak-xdg-utils flatpak-spawn && \
     dnf install -y  https://ecsft.cern.ch/dist/cvmfs/cvmfs-release/cvmfs-release-latest.noarch.rpm && \
     dnf install -y  cvmfs cvmfs-fuse3 && \
-    dnf install -y  gcc gcc-c++ gcc-gfortran gdb && \
+    dnf install -y  gcc gcc-c++ gcc-gfortran gdb bear && \
     dnf install -y  libxml2-devel curl-devel /usr/lib64/libexpat.so /usr/lib64/libfreetype.so ftgl \
                     libXmu-devel mesa-libGLU-devel libX11-devel mesa-libEGL-devel libtiff clang-tools-extra\
                     libXpm-devel libicu-devel libXft git openssh-clients gsl-devel make patch glibc-devel && \

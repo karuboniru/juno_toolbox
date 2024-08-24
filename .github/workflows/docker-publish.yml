@@ -38,11 +38,13 @@ jobs:
     steps:
       - name: Install dependencies
         run: |
-          dnf install -y buildah podman skopeo git
+          dnf install -y buildah podman skopeo git fuse-overlayfs
           mkdir -p /tmp/podman-run-0/containers
           mkdir -p /github/home/.docker
           ln -sf /run/containers/0/auth.json /tmp/podman-run-0/containers/auth.json
           ln -sf /run/containers/0/auth.json /github/home/.docker/config.json
+          cp /usr/share/containers/storage.conf /etc/containers/storage.conf
+          sed -i 's/#mount_program/mount_program/' /etc/containers/storage.conf
 
       - name: Checkout repository
         uses: actions/checkout@v3
