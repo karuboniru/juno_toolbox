@@ -29,7 +29,8 @@ RUN sed -i '/tsflags=nodocs/d' /etc/dnf/dnf.conf && \
     dnf install -y  gcc gcc-c++ gcc-gfortran gdb bear && \
     dnf install -y  libxml2-devel curl-devel /usr/lib64/libexpat.so /usr/lib64/libfreetype.so ftgl \
                     libXmu-devel mesa-libGLU-devel libX11-devel mesa-libEGL-devel libtiff clang-tools-extra\
-                    libXpm-devel libicu-devel libXft git openssh-clients gsl-devel make patch glibc-devel && \
+                    libXpm-devel libicu-devel libXft git openssh-clients gsl-devel make patch glibc-devel \
+                    /usr/lib64/libnsl.so.3 && \
     dnf clean all && \
     rm missing && \
     ln -sf /usr/bin/flatpak-xdg-open /usr/bin/xdg-open 
